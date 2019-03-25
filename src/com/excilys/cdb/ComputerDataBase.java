@@ -10,7 +10,7 @@ import com.excilys.ui.CommandLineInterface;
 public class ComputerDataBase {
 	
 	public static void main(String[] args) throws Exception {
-		// Test 1
+		// Test 1 :
 		String dateIn = "28/01/1995";
 		Timestamp introducedDate = Computer.stringToTimestamp(dateIn);
 		
@@ -23,7 +23,7 @@ public class ComputerDataBase {
 		System.out.println(jarvis.toString());
 		System.out.println(dell.toString());
 		
-		// Test 2
+		// Test 2 :
 		CommandLineInterface commandLineInterface = new CommandLineInterface();
 		commandLineInterface.start();
 		System.exit(0);
