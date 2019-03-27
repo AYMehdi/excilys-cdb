@@ -139,7 +139,16 @@
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>3.0.0</version>
         <configuration>
-          <configLocation>checkstyle.xml</configLocation>
+          <configLocation>target/checkstyle/checkstyle.xml</configLocation>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-suppresions-plugin</artifactId>
+        <version>3.0.0</version>
+        <configuration>
+          <configLocation>target/checkstyle/suppresions.xml</configLocation>
         </configuration>
       </plugin>
     </plugins>
