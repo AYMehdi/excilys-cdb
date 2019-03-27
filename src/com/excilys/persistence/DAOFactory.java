@@ -12,7 +12,7 @@ import java.util.Properties;
 
 public class DAOFactory {
 	
-    private static final String FICHIER_PROPERTIES = "com/excilys/ressources/properties/dao.properties";
+    private static final String FICHIER_PROPERTIES = "com/excilys/resources/properties/dao.properties";
     private static final String PROPERTY_URL	   = "url";
     private static final String PROPERTY_DRIVER	   = "driver";
     private static final String PROPERTY_USER	   = "user";

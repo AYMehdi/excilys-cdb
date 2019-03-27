@@ -25,7 +25,7 @@ public enum Pagination {
 				index = 2;
 				break;
 			default :
-				index = 4;
+				index = 3;
 				break;
 		}
 		return Pagination.values()[index];
