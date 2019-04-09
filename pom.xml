@@ -24,6 +24,9 @@
 
     <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
     <jstl.version>1.2</jstl.version>
+    <jquery.version>3.3.1-2</jquery.version>
+    <hikari.version>3.3.1</hikari.version>
+
   </properties>
 
 
@@ -51,7 +54,7 @@
       <scope>test</scope>
   	</dependency>
   
-  	<!-- https://mvnrepository.com/artifact/log4j/log4j -->
+  	<!-- https://mvnrepository.com/artifact/g4j/log4j -->
   	<dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
@@ -72,11 +75,26 @@
       <artifactId>jstl</artifactId>
       <version>${jstl.version}</version>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.webjars/jquery -->
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>jquery</artifactId>
+      <version>${jquery.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
+    <dependency>
+      <groupId>com.zaxxer</groupId>
+      <artifactId>HikariCP</artifactId>
+      <version>${hikari.version}</version>
+    </dependency>
   </dependencies>
 
 
   <build>
     <sourceDirectory>src</sourceDirectory>
+    
     <resources>
       <resource>
         <directory>src/com/excilys/resources/properties</directory>

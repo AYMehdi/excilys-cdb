@@ -10,8 +10,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.com.excilys.model.Company;
-import main.com.excilys.model.Computer;
+import main.java.com.excilys.model.Company;
+import main.java.com.excilys.model.Computer;
 
 public class ComputerTest {
 	Computer computer1;
