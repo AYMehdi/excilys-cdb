@@ -16,10 +16,6 @@ public class ComputerBuilder {
 	// ******* BUILDER *******
 	public ComputerBuilder() {}
 	
-	public Computer build() {
-		return new Computer(id, name, company, introducedDate,discontinuedDate);
-	}
-	
 	public ComputerBuilder withId(int id) {
 		this.setId(id);
 		return this;
@@ -43,6 +39,16 @@ public class ComputerBuilder {
 	public ComputerBuilder withDiscontinuedDate(Timestamp discontinuedDate) {
 		this.setDiscontinuedDate(discontinuedDate);
 		return this;
+	}
+	
+	public Computer build() {
+		Computer computer = new Computer();
+		computer.setId(this.getId());
+		computer.setName(this.getName());
+		computer.setCompany(this.getCompany());
+		computer.setIntroducedDate(this.getIntroducedDate());
+		computer.setDiscontinuedDate(this.getDiscontinuedDate());
+		return computer;
 	}
 	
 	// ******* GETTERS *******

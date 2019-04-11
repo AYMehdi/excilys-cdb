@@ -1,7 +1,7 @@
 package main.java.com.excilys.mapper;
 
 import main.java.com.excilys.model.Computer;
-import main.java.com.excilys.model.dto.ComputerDTO;
+import main.java.com.excilys.model.ComputerDTO;
 
 public class ComputerDTOMapper {
 
@@ -9,25 +9,25 @@ public class ComputerDTOMapper {
 	
 	public static ComputerDTO map(Computer computer) {
 		
-		ComputerDTO dto = new ComputerDTO();
+		ComputerDTO computerDTO = new ComputerDTO();
 		
-		dto.setId(computer.getId());
-		dto.setName(computer.getName());
-		dto.setCompany( computer.getCompany().getName());
+		computerDTO.setComputerId(computer.getId());
+		computerDTO.setComputerName(computer.getName());
+		computerDTO.setCompanyId(computer.getCompany().getId());
+		computerDTO.setCompanyName(computer.getCompany().getName());
 		
 		if(computer.getIntroducedDate() == null) {
-			dto.setIntroducedDate(EMPTY);			
+			computerDTO.setIntroducedDate(EMPTY);			
 		} else {
-			dto.setIntroducedDate(computer.getIntroducedDate().toString());
+			computerDTO.setIntroducedDate(computer.getIntroducedDate().toString());
 		}
 		
 		if(computer.getDiscontinuedDate() == null) {
-			dto.setDiscontinuedDate(EMPTY);			
+			computerDTO.setDiscontinuedDate(EMPTY);			
 		} else {
-			dto.setDiscontinuedDate(computer.getDiscontinuedDate().toString());
+			computerDTO.setDiscontinuedDate(computer.getDiscontinuedDate().toString());
 		}
 		
-		return dto;
+		return computerDTO;
 	}
-	
 }

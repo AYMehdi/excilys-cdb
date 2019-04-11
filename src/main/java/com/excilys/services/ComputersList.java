@@ -13,13 +13,15 @@ public class ComputersList {
 		CommandLineInterface cli = new CommandLineInterface();
 		
 		try {
-			ArrayList<Computer> computers = cli.getComputerDAO().computersList();
+			ArrayList<Computer> computers = cli.getComputerDAO().getAll();
 			Page<Computer> pageComputer = new Page<Computer>(computers);
+			System.out.println("Size of the computers list :" +  computers.size() + "\n");
 			Show.showPage(pageComputer);
 		}
 		catch(NullPointerException e) {
 			System.out.println("Sorry Mr, table \"Computers\" in your Database is empty.\n"
 					+ "Please add a computer first.");
+			e.printStackTrace();
 		}
 	}
 }

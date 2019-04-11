@@ -1,10 +1,12 @@
 package main.java.com.excilys.services;
 
 import java.sql.Timestamp;
+import java.util.Optional;
 
 import com.mysql.cj.util.StringUtils;
 
 import main.java.com.excilys.exception.DAOException;
+import main.java.com.excilys.exception.ItemNotFoundException;
 import main.java.com.excilys.model.Company;
 import main.java.com.excilys.model.Computer;
 import main.java.com.excilys.ui.CommandLineInterface;
@@ -14,17 +16,17 @@ public class UpdateComputer {
 	static CommandLineInterface cli = new CommandLineInterface();
 	
 	// ******* UPDATING COMPUTER METHOD *******
-	public static void updateComputer() {
+	public static void updateComputer() throws DAOException, ItemNotFoundException {
 		System.out.println("\n***********************");
 		System.out.println("** Updating Computer **");
 		System.out.println("***********************\n");
 
 		String input = Input.inputComputerID();
-		Computer computer;
+		Optional <Computer> computer;
 
 		if (!input.equals("0")) {
 			try {
-				computer = cli.getComputerDAO().find(Integer.parseInt(input));
+				computer = cli.getComputerDAO().get(Integer.parseInt(input));
 			} catch (DAOException e) {
 				System.out.println("Sorry Mr, this computer doesn't exist in your Database.\n");
 				return;
@@ -42,10 +44,10 @@ public class UpdateComputer {
 					input = cli.getUserKeyboard().nextLine().trim();
 				}
 
-				computer.setName(input);
+				computer.get().setName(input);
 			}
 
-			input = updatingRequest("introducedDate", computer);
+			input = updatingRequest("introduced", computer);
 
 			if (input.equals("Y")) {
 				System.out.print(
@@ -57,19 +59,19 @@ public class UpdateComputer {
 				if (!StringUtils.isNullOrEmpty(input)) {
 					introducedDate = Input.datetToTimestamp(input);
 				} else {
-					computer.setDiscontinuedDate(null);
+					computer.get().setDiscontinuedDate(null);
 				}
-				computer.setIntroducedDate(introducedDate);
+				computer.get().setIntroducedDate(introducedDate);
 			}
 
-			if (computer.getIntroducedDate() != null) {
-				if (computer.getDiscontinuedDate() != null
-						&& !computer.getDiscontinuedDate().after(computer.getIntroducedDate())) {
+			if (computer.get().getIntroducedDate() != null) {
+				if (computer.get().getDiscontinuedDate() != null
+						&& !computer.get().getDiscontinuedDate().after(computer.get().getIntroducedDate())) {
 					System.out.println(
 							"Sorry Mr, the discontinuation date of your computer is now before its introduction one.\n"
 									+ "This is impossible. Please enter a new discontinuation date for your computer (dd/MM/yyyy) : ");
 				} else {
-					input = updatingRequest("discontinuedDate", computer);
+					input = updatingRequest("discontinued", computer);
 					if (input.equals("Y")) {
 						System.out.print(
 								"Please enter a new discontinued date for your computer or press Enter to make it null (dd/MM/yyyy) : ");
@@ -81,10 +83,10 @@ public class UpdateComputer {
 
 					Timestamp discontinuedDate = null;
 					if (!StringUtils.isNullOrEmpty(input)) {
-						discontinuedDate = Input.checkDiscontinued(input, computer.getIntroducedDate());
+						discontinuedDate = Input.checkDiscontinued(input, computer.get().getIntroducedDate());
 					}
 
-					computer.setDiscontinuedDate(discontinuedDate);
+					computer.get().setDiscontinuedDate(discontinuedDate);
 				}
 			}
 
@@ -96,10 +98,10 @@ public class UpdateComputer {
 			}
 			if (input.equals("Y")) {
 				input = Input.inputCompanyID();
-				Company company = null;
+				Optional <Company> company = null;
 				if (!input.equals("0") && !StringUtils.isNullOrEmpty(input)) {
 					try {
-						company = cli.getCompanyDAO().find(Integer.parseInt(input));
+						company = cli.getCompanyDAO().get(Integer.parseInt(input));
 					} catch (DAOException e) {
 						System.out.println(
 								"This company doesn't exist in your Database. The updated manufacturer will be null.\n");
@@ -109,10 +111,10 @@ public class UpdateComputer {
 					return;
 				}
 
-				computer.setCompany(company);
+				computer.get().setCompany(company.get());
 			}
 
-			cli.getComputerDAO().update(computer);
+			cli.getComputerDAO().update(computer.get());
 
 			System.out.println("\n************************************");
 			System.out.println("** Computer updated succesfully ! **");
@@ -122,7 +124,7 @@ public class UpdateComputer {
 	}
 	
 	// ******* UPDATING REQUEST *******
-	public static String updatingRequest(String field, Computer computer) {
+	public static String updatingRequest(String field, Optional <Computer> computer) {
 		StringBuilder update = new StringBuilder("actual_computer \"");
 
 		update.append(field);
@@ -130,20 +132,20 @@ public class UpdateComputer {
 
 		switch (field) {
 		case "name":
-			update.append(computer.getName());
+			update.append(computer.get().getName());
 			break;
 		case "company":
 			try {
-				update.append(computer.getCompany().getName());
+				update.append(computer.get().getCompany().getName());
 			} catch (NullPointerException e) {
 				update.append("unkown Company");
 			}
 			break;
 		case "introducedDate":
-			update.append(computer.getIntroducedDate());
+			update.append(computer.get().getIntroducedDate());
 			break;
 		case "discontinuedDate ":
-			update.append(computer.getDiscontinuedDate());
+			update.append(computer.get().getDiscontinuedDate());
 			break;
 		}
 

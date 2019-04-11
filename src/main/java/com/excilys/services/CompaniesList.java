@@ -11,8 +11,17 @@ public class CompaniesList {
 	// ******** LISTING COMPANIES METHOD *******
 	public static void companiesList() {
 		CommandLineInterface cli = new CommandLineInterface();
-		ArrayList<Company> companies = cli.getCompanyDAO().companiesList();
-		Page<Company> pageCompany = new Page<Company>(companies);
-		Show.showPage(pageCompany);
+		
+		try {
+			ArrayList<Company> companies = cli.getCompanyDAO().getAll();
+			Page<Company> pageCompany = new Page<Company>(companies);
+			System.out.println("Size of the companies list :" +  companies.size() + "\n");
+			Show.showPage(pageCompany);
+		}
+		catch(NullPointerException e) {
+			System.out.println("Sorry Mr, table \"Companies\" in your Database is empty.\n"
+					+ "Please add a company first.");
+			e.printStackTrace();
+		}
 	}
 }

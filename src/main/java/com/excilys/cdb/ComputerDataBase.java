@@ -25,7 +25,7 @@ public class ComputerDataBase {
 		Computer jarvis = new Computer("Latitude 5580",dell , introducedDate, discontinuedDate);
 		
 		System.out.println(jarvis.toString());
-		System.out.println(dell.toString());
+		System.out.println(dell.toString() + "\n");
 		
 		// Test 2 :
 		logger.info("App starting");

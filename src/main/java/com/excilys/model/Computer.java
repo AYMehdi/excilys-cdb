@@ -130,7 +130,7 @@ public class Computer {
 	}
 	
 	public void setDiscontinuedDate(Timestamp discontinuedDate) {
-		if (this.getIntroducedDate().compareTo(discontinuedDate) <= 0) {
+		if (this.getDiscontinuedDate() != null && this.getIntroducedDate().compareTo(discontinuedDate) <= 0) {
 			this.discontinuedDate = discontinuedDate;
 		}
 	}
@@ -170,11 +170,10 @@ public class Computer {
 					 +timestampToString(this.getIntroducedDate());
 		 }
 		 else {
-			 return "ID : "+this.getId()+". "+this.getName()+" is a computer manufactured by "
-					 +this.getCompany().getName()
+			 return "ID : "+this.getId()+". "+this.getName()
+			 		 +" is a computer manufactured by " +this.getCompany().getName()
 					 +" in "+timestampToString(this.getIntroducedDate())
-					 +" and discontinued in "
-					 +timestampToString(this.getDiscontinuedDate());
+					 +" and discontinued in " +timestampToString(this.getDiscontinuedDate());
 		 }
 	}
 	
@@ -223,5 +222,11 @@ public class Computer {
 			return (((Computer) o).getDiscontinuedDate()==null);
 		else
 			return this.getDiscontinuedDate().equals( ((Computer) o).getDiscontinuedDate());
+	}
+
+	@Override
+	public int hashCode() {
+		return this.getId() + this.getName().hashCode() + this.getCompany().hashCode()
+				+ this.getIntroducedDate().hashCode() + this.getDiscontinuedDate().hashCode();
 	}
 }

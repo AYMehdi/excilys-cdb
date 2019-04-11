@@ -6,6 +6,16 @@ import java.sql.SQLException;
 import main.java.com.excilys.model.Company;
 
 public class CompanyMapper {
+	private static CompanyMapper instance = null;
+
+	public CompanyMapper() {}
+
+	public static CompanyMapper getInstance() {
+		if (instance == null) {
+			instance = new CompanyMapper();
+		}
+		return instance;
+	}
 	
 	public Company map(ResultSet resultSet) throws SQLException {
 	    Company company = new Company();

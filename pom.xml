@@ -21,11 +21,12 @@
     <junit.version>4.11</junit.version>
     <mockito-all.version>1.9.5</mockito-all.version>
     <log4j.version>1.2.17</log4j.version>
-
+    <commons.lang.version>2.6</commons.lang.version>
     <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
     <jstl.version>1.2</jstl.version>
     <jquery.version>3.3.1-2</jquery.version>
     <hikari.version>3.3.1</hikari.version>
+    <selenium-java.version>3.141.59</selenium-java.version>
 
   </properties>
 
@@ -61,6 +62,13 @@
       <version>${log4j.version}</version>
   	</dependency>
 
+    <!-- https://mvnrepository.com/artifact/commons-lang/commons-lang -->
+    <dependency>
+        <groupId>commons-lang</groupId>
+        <artifactId>commons-lang</artifactId>
+        <version>2.6</version>
+    </dependency>
+
   	<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -88,6 +96,13 @@
       <groupId>com.zaxxer</groupId>
       <artifactId>HikariCP</artifactId>
       <version>${hikari.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>3.141.59</version>
     </dependency>
   </dependencies>
 

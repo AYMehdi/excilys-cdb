@@ -52,6 +52,7 @@ public class Company {
 	}
 		
 	// ******* OTHER METHODS *******
+	@Override
 	public String toString(){
 		switch(this.getId()) {
 		case -2: //Pas d'ID ni de nom
@@ -61,5 +62,10 @@ public class Company {
 		default:
 			return "The company " +this.getName()+ " is repertoried with the ID n°" +this.getId();
 		}
+	}
+	
+	@Override
+	public int hashCode() {
+		return this.getId() + this.getName().hashCode();
 	}
 }

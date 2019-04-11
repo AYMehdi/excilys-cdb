@@ -1,6 +1,7 @@
 package main.java.com.excilys.services;
 
 import java.sql.Timestamp;
+import java.util.Optional;
 
 import com.mysql.cj.util.StringUtils;
 
@@ -15,7 +16,6 @@ public class AddComputer {
 	
 	// ******** ADDING COMPUTER METHOD *******
 	public static  void addComputer() {
-		
 		System.out.println("\n*********************");
 		System.out.println("** Adding Computer **");
 		System.out.println("*********************\n");
@@ -59,11 +59,11 @@ public class AddComputer {
 		}
 
 		input = Input.inputCompanyID();
-		Company company = null;
+		Optional <Company> company = null;
 
 		if (!input.equals("0") && !StringUtils.isNullOrEmpty(input)) {
 			try {
-				company = cli.getCompanyDAO().find(Integer.parseInt(input));
+				company = cli.getCompanyDAO().get(Integer.parseInt(input));
 			} catch (DAOException e) {
 				System.out.println(
 						"This company doesn't exist in your Database. "
@@ -74,7 +74,7 @@ public class AddComputer {
 			return;
 		}
 
-		createSQLComputer(name, company, introducedDate, discontinuedDate);
+		createSQLComputer(name, company.get(), introducedDate, discontinuedDate);
 
 		System.out.println("\n**********************************");
 		System.out.println("** Computer added succesfully ! **");

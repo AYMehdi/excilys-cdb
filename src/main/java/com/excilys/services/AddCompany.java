@@ -11,7 +11,6 @@ public class AddCompany {
 	
 	// ******** ADDING COMPANY METHOD *******
 	public static  void addCompany() {
-		
 		System.out.println("\n********************");
 		System.out.println("** Adding Company **");
 		System.out.println("********************\n");

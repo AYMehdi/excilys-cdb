@@ -1,31 +1,31 @@
 package main.java.com.excilys.model.builder;
 
-import main.java.com.excilys.model.Company;
+import main.java.com.excilys.model.CompanyDTO;
 
-public class CompanyBuilder {
+public class CompanyDTOBuilder {
 	
 	// ******* VARIABLES *******
 	private int id;
 	private String name;
 	
 	// ******* BUILDER *******
-	public CompanyBuilder() {}
+	public CompanyDTOBuilder() {}
 	
-	public CompanyBuilder withId(int id) {
+	public CompanyDTOBuilder withId(int id) {
 		this.setId(id);
 		return this;
 	}
 	
-	public CompanyBuilder withName(String name) {
+	public CompanyDTOBuilder withName(String name) {
 		this.setName(name);
 		return this;
 	}
 	
-	public Company build() {
-		Company company = new Company();
-		company.setId(this.id);
-		company.setName(this.name);
-		return company;
+	public CompanyDTO build() {
+		CompanyDTO companyDTO = new CompanyDTO();
+		companyDTO.setId(this.getId());
+		companyDTO.setName(this.getName());
+		return companyDTO;
 	}
 	
 	// ******* GETTERS *******

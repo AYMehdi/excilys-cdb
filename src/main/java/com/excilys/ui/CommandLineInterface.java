@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
+import main.java.com.excilys.exception.DAOException;
+import main.java.com.excilys.exception.ItemNotFoundException;
 import main.java.com.excilys.persistence.CompanyDAO;
 import main.java.com.excilys.persistence.ComputerDAO;
 import main.java.com.excilys.persistence.DAOFactory;
@@ -28,13 +30,13 @@ public class CommandLineInterface {
 	// ******* PRINCIAPAL METHODS *******
 	public CommandLineInterface() {
 		this.daoFactory = DAOFactory.getInstance();
-		this.companyDAO = daoFactory.getCompanyDao();
-		this.computerDAO = daoFactory.getComputerDao();
+		this.companyDAO = daoFactory.getCompanyDAO();
+		this.computerDAO = daoFactory.getComputerDAO();
 		this.dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		this.userKeyboard = new Scanner(System.in);
 	}
 
-	public void start() {
+	public void start() throws DAOException, ItemNotFoundException {
 		Action action = null;
 
 		System.out.println("\n***********************************************************");
