@@ -17,7 +17,6 @@
 		<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" media="screen">
 		<link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet" media="screen">
 		<link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet" media="screen">
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
 	</head>
 	
 	<body>
@@ -138,8 +137,8 @@
 	       	</div>
 	    </footer>
 	    
-		<script src="../static/js/jquery.min.js"></script>
-		<script src="../static/js/bootstrap.min.js"></script>
-		<script src="../static/js/dashboard.js"></script>
+		<script src="/js/jquery.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>
+		<script src="/js/dashboard.js"></script>
 	</body>
 </html>

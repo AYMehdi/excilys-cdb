@@ -162,18 +162,18 @@ public class Computer {
 	public String toString(){
 		 if(this.getIntroducedDate() == null) {
 			 return "ID : "+this.getId()+". "+this.getName()+" is a computer manufactured by "
-					 +this.getCompany().getName() +"\n";
+					 +this.getCompany().getName();
 		 }
 		 else if(this.getIntroducedDate() != null && this.getDiscontinuedDate() == null) {
 			 return "ID : "+this.getId()+". "+this.getName()+" is a computer manufactured by "
 					 +this.getCompany().getName()+ " in "
-					 +timestampToString(this.getIntroducedDate()) +"\n";
+					 +timestampToString(this.getIntroducedDate());
 		 }
 		 else {
 			 return "ID : "+this.getId()+". "+this.getName()
 			 		 +" is a computer manufactured by " +this.getCompany().getName()
 					 +" in "+timestampToString(this.getIntroducedDate())
-					 +" and discontinued in " +timestampToString(this.getDiscontinuedDate()) +"\n";
+					 +" and discontinued in " +timestampToString(this.getDiscontinuedDate());
 		 }
 	}
 	
