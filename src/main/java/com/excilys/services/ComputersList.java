@@ -2,8 +2,8 @@ package main.java.com.excilys.services;
 
 import java.util.ArrayList;
 
-import main.java.com.excilys.model.Computer;
-import main.java.com.excilys.model.Page;
+import main.java.com.excilys.models.Computer;
+import main.java.com.excilys.models.Page;
 import main.java.com.excilys.ui.CommandLineInterface;
 
 public class ComputersList {

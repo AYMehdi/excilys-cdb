@@ -4,8 +4,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
-import main.java.com.excilys.exception.DAOException;
-import main.java.com.excilys.exception.ItemNotFoundException;
+import main.java.com.excilys.exceptions.DAOException;
+import main.java.com.excilys.exceptions.ItemNotFoundException;
 import main.java.com.excilys.persistence.CompanyDAO;
 import main.java.com.excilys.persistence.ComputerDAO;
 import main.java.com.excilys.persistence.DAOFactory;

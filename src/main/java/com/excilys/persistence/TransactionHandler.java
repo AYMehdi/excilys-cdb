@@ -3,7 +3,7 @@ package main.java.com.excilys.persistence;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import main.java.com.excilys.exception.DAOException;
+import main.java.com.excilys.exceptions.DAOException;
 
 public class TransactionHandler<U,R> {
 

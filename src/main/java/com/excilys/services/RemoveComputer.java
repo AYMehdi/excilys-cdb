@@ -4,8 +4,9 @@ import java.util.Optional;
 
 import com.mysql.cj.util.StringUtils;
 
-import main.java.com.excilys.exception.DAOException;
-import main.java.com.excilys.model.Computer;
+import main.java.com.excilys.exceptions.DAOException;
+import main.java.com.excilys.models.Computer;
+import main.java.com.excilys.persistence.ComputerDAO;
 import main.java.com.excilys.ui.CommandLineInterface;
 
 public class RemoveComputer {
@@ -30,7 +31,8 @@ public class RemoveComputer {
 
 		if (!input.equals("0")) {
 			try {
-				Optional <Computer> computer = cli.getComputerDAO().get(Integer.parseInt(input));
+				cli.getComputerDAO();
+				Optional <Computer> computer = ComputerDAO.getById(Integer.parseInt(input));
 				System.out.println(computer.toString());
 				System.out.print("Are you sure you want to remove this computer ? (Y\\N) : ");
 				input = cli.getUserKeyboard().nextLine().trim();
@@ -41,7 +43,8 @@ public class RemoveComputer {
 					input = cli.getUserKeyboard().nextLine().trim();
 				}
 				if (input.equals("Y")) {
-					cli.getComputerDAO().remove(computer.get());
+					cli.getComputerDAO();
+					ComputerDAO.remove(computer.get());
 
 					System.out.println("\n************************************");
 					System.out.println("** Computer removed successfuly ! **");

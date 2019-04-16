@@ -5,9 +5,10 @@ import java.util.Optional;
 
 import com.mysql.cj.util.StringUtils;
 
-import main.java.com.excilys.exception.DAOException;
-import main.java.com.excilys.model.Company;
-import main.java.com.excilys.model.Computer;
+import main.java.com.excilys.exceptions.DAOException;
+import main.java.com.excilys.models.Company;
+import main.java.com.excilys.models.Computer;
+import main.java.com.excilys.persistence.ComputerDAO;
 import main.java.com.excilys.ui.CommandLineInterface;
 
 public class AddComputer {
@@ -63,7 +64,7 @@ public class AddComputer {
 
 		if (!input.equals("0") && !StringUtils.isNullOrEmpty(input)) {
 			try {
-				company = cli.getCompanyDAO().get(Integer.parseInt(input));
+				company = cli.getCompanyDAO().getById(Integer.parseInt(input));
 			} catch (DAOException e) {
 				System.out.println(
 						"This company doesn't exist in your Database. "
@@ -90,6 +91,7 @@ public class AddComputer {
 		computer.setIntroducedDate(introducedDate);
 		computer.setDiscontinuedDate(discontinuedDate);
 
-		cli.getComputerDAO().add(computer);
+		cli.getComputerDAO();
+		ComputerDAO.add(computer);
 	}
 }

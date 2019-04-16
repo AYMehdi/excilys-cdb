@@ -5,10 +5,11 @@ import java.util.Optional;
 
 import com.mysql.cj.util.StringUtils;
 
-import main.java.com.excilys.exception.DAOException;
-import main.java.com.excilys.exception.ItemNotFoundException;
-import main.java.com.excilys.model.Company;
-import main.java.com.excilys.model.Computer;
+import main.java.com.excilys.exceptions.DAOException;
+import main.java.com.excilys.exceptions.ItemNotFoundException;
+import main.java.com.excilys.models.Company;
+import main.java.com.excilys.models.Computer;
+import main.java.com.excilys.persistence.ComputerDAO;
 import main.java.com.excilys.ui.CommandLineInterface;
 
 public class UpdateComputer {
@@ -26,7 +27,8 @@ public class UpdateComputer {
 
 		if (!input.equals("0")) {
 			try {
-				computer = cli.getComputerDAO().get(Integer.parseInt(input));
+				cli.getComputerDAO();
+				computer = ComputerDAO.getById(Integer.parseInt(input));
 			} catch (DAOException e) {
 				System.out.println("Sorry Mr, this computer doesn't exist in your Database.\n");
 				return;
@@ -101,7 +103,7 @@ public class UpdateComputer {
 				Optional <Company> company = null;
 				if (!input.equals("0") && !StringUtils.isNullOrEmpty(input)) {
 					try {
-						company = cli.getCompanyDAO().get(Integer.parseInt(input));
+						company = cli.getCompanyDAO().getById(Integer.parseInt(input));
 					} catch (DAOException e) {
 						System.out.println(
 								"This company doesn't exist in your Database. The updated manufacturer will be null.\n");
@@ -114,7 +116,8 @@ public class UpdateComputer {
 				computer.get().setCompany(company.get());
 			}
 
-			cli.getComputerDAO().update(computer.get());
+			cli.getComputerDAO();
+			ComputerDAO.update(computer.get());
 
 			System.out.println("\n************************************");
 			System.out.println("** Computer updated succesfully ! **");

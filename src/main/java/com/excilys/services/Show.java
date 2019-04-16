@@ -1,7 +1,7 @@
 package main.java.com.excilys.services;
 
-import main.java.com.excilys.model.Page;
-import main.java.com.excilys.model.Pagination;
+import main.java.com.excilys.models.Page;
+import main.java.com.excilys.models.Pagination;
 import main.java.com.excilys.ui.CommandLineInterface;
 
 public class Show {

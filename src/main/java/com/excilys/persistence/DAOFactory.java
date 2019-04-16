@@ -6,7 +6,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -21,22 +22,22 @@ public class DAOFactory {
 
 	private static DAOFactory instance = null;
 
-	private Logger logger = Logger.getLogger(DAOFactory.class);
+	private Logger logger = LoggerFactory.getLogger(DAOFactory.class);
 	private HikariDataSource hikariDataSource;
 
 	// ******** CONSTRUCTOR *******
-	private DAOFactory() {
+	public DAOFactory() {
 		this(DAO_PROPERTIES);
 	}
 
-	private DAOFactory(String propertiesPath) {
+	public DAOFactory(String propertiesPath) {
 		Properties properties = new Properties();
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		InputStream fichierProperties = classLoader.getResourceAsStream(propertiesPath);
 		try {
 			properties.load(fichierProperties);
-			HikariConfig hikariCfg = new HikariConfig(properties);
-			this.hikariDataSource = new HikariDataSource(hikariCfg);
+			HikariConfig hikariConfig = new HikariConfig(properties);
+			this.hikariDataSource = new HikariDataSource(hikariConfig);
 		} catch (IOException e) {
 			logger.error(e.getMessage());
 		}

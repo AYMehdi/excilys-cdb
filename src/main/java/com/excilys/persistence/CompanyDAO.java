@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import main.java.com.excilys.exception.DAOException;
-import main.java.com.excilys.mapper.CompanyMapper;
-import main.java.com.excilys.model.Company;
+import main.java.com.excilys.exceptions.DAOException;
+import main.java.com.excilys.mappers.CompanyMapper;
+import main.java.com.excilys.models.Company;
 
 public class CompanyDAO {
 
@@ -38,27 +38,27 @@ public class CompanyDAO {
 		return instance;
 	}
 
-	public Optional<Company> get(int id) throws DAOException {
+	public Optional<Company> getById(int id) throws DAOException {
 		Optional<Company> company = Optional.empty();
-		return TransactionHandler.create((Connection conn, Optional<Company> companyArg) -> {
-			PreparedStatement stmt = conn.prepareStatement(SQL_GET_BY_ID);
-			stmt.setInt(1, id);
-			ResultSet rs = stmt.executeQuery();
-			if (rs.next()) {
-				companyArg = Optional.ofNullable(companyMapper.map(rs));
+		return TransactionHandler.create((Connection connection, Optional<Company> companyArg) -> {
+			PreparedStatement statement = connection.prepareStatement(SQL_GET_BY_ID);
+			statement.setInt(1, id);
+			ResultSet resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				companyArg = Optional.ofNullable(companyMapper.map(resultSet));
 			}
 			return companyArg;
 		}).run(company).getResult();
 	}
 
-	public Optional<Company> get(String name) throws DAOException {
+	public Optional<Company> getByName(String name) throws DAOException {
 		Optional<Company> company = Optional.empty();
-		return TransactionHandler.create((Connection conn, Optional<Company> companyOpt) -> {
-			PreparedStatement stmt = conn.prepareStatement(SQL_GET_BY_NAME);
-			stmt.setString(1, name);
-			ResultSet rs = stmt.executeQuery();
-			if (rs.next()) {
-				companyOpt = Optional.ofNullable(companyMapper.map(rs));
+		return TransactionHandler.create((Connection connection, Optional<Company> companyOpt) -> {
+			PreparedStatement statement = connection.prepareStatement(SQL_GET_BY_NAME);
+			statement.setString(1, name);
+			ResultSet resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				companyOpt = Optional.ofNullable(companyMapper.map(resultSet));
 			}
 			return companyOpt;
 		}).run(company).getResult();
@@ -66,11 +66,11 @@ public class CompanyDAO {
 	
 	public ArrayList<Company> getAll() throws DAOException {
 		List<Company> listCompanies = new ArrayList<Company>();
-		return (ArrayList<Company>) TransactionHandler.create((Connection conn, List<Company> l) -> {
-			PreparedStatement stmt = conn.prepareStatement(SQL_GET_ALL);
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				Company company = companyMapper.map(rs);
+		return (ArrayList<Company>) TransactionHandler.create((Connection connection, List<Company> l) -> {
+			PreparedStatement statement = connection.prepareStatement(SQL_GET_ALL);
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				Company company = companyMapper.map(resultSet);
 				l.add(company);
 			}
 			return l;
@@ -78,12 +78,12 @@ public class CompanyDAO {
 	}
 
 	public List<Company> getAllOrderByName(boolean isDesc) throws DAOException {
-		TransactionHandler<String, List<Company>> transactionHandler = TransactionHandler.create((Connection conn, String request) -> {
+		TransactionHandler<String, List<Company>> transactionHandler = TransactionHandler.create((Connection connection, String request) -> {
 			List<Company> listCompanies = new ArrayList<Company>();
-			PreparedStatement stmt = conn.prepareStatement(request);
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				Company company = companyMapper.map(rs);
+			PreparedStatement statement = connection.prepareStatement(request);
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				Company company = companyMapper.map(resultSet);
 				listCompanies.add(company);
 			}
 			return listCompanies;
@@ -97,22 +97,22 @@ public class CompanyDAO {
 
 	public void add(Company obj) throws DAOException {
 		TransactionHandler.create((Connection connection, Company companyArg) -> {
-			PreparedStatement stmt = connection.prepareStatement(SQL_INSERT);
-			stmt.setInt(1, companyArg.getId());
-			stmt.setString(2, companyArg.getName());
-			stmt.executeUpdate();
+			PreparedStatement statement = connection.prepareStatement(SQL_INSERT);
+			statement.setInt(1, companyArg.getId());
+			statement.setString(2, companyArg.getName());
+			statement.executeUpdate();
 			return Optional.empty();
 		}).run(obj);
 	}
 	
 	public void delete(Company obj) throws DAOException {
-		TransactionHandler.create((Connection conn, Company company) -> {
-			PreparedStatement stmt = conn.prepareStatement(SQL_DELETE_COMPUTER_BY_COMPANY_ID);
-			stmt.setInt(1, company.getId());
-			stmt.executeUpdate();
-			stmt = conn.prepareStatement(SQL_DELETE_COMPANY_BY_ID);
-			stmt.setInt(1, company.getId());
-			stmt.executeUpdate();
+		TransactionHandler.create((Connection connection, Company company) -> {
+			PreparedStatement statement = connection.prepareStatement(SQL_DELETE_COMPUTER_BY_COMPANY_ID);
+			statement.setInt(1, company.getId());
+			statement.executeUpdate();
+			statement = connection.prepareStatement(SQL_DELETE_COMPANY_BY_ID);
+			statement.setInt(1, company.getId());
+			statement.executeUpdate();
 			return Optional.empty();
 		}).run(obj);
 	}

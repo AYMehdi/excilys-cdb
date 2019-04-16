@@ -4,16 +4,17 @@ import java.sql.Timestamp;
 
 import org.apache.log4j.Logger;
 
-import main.java.com.excilys.model.Company;
-import main.java.com.excilys.model.Computer;
-import main.java.com.excilys.model.Manufacturers;
+import main.java.com.excilys.models.Company;
+import main.java.com.excilys.models.Computer;
+import main.java.com.excilys.models.Manufacturers;
 import main.java.com.excilys.ui.CommandLineInterface;
 
 public class ComputerDataBase {
 	
-	private static Logger logger = Logger.getLogger(ComputerDataBase.class);
-	
 	public static void main(String[] args) throws Exception {
+		Logger logger = Logger.getLogger(ComputerDataBase.class);
+		logger.info("\n ***** Heureux de vous revoir Monsieur ! ****** \n");
+		
 		// Test 1 :
 		String dateIn = "28/01/1995";
 		Timestamp introducedDate = Computer.stringToTimestamp(dateIn);

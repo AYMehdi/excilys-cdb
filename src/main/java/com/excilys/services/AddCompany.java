@@ -2,7 +2,7 @@ package main.java.com.excilys.services;
 
 import com.mysql.cj.util.StringUtils;
 
-import main.java.com.excilys.model.Company;
+import main.java.com.excilys.models.Company;
 import main.java.com.excilys.ui.CommandLineInterface;
 
 public class AddCompany {
