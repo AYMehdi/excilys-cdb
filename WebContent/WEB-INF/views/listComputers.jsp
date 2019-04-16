@@ -14,20 +14,18 @@
 		<meta charset="utf-8">
 		
 		<!-- Bootstrap -->
-		<link href="${pageContext.request.contextPath}/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
-		<link href="${pageContext.request.contextPath}/static/css/font-awesome.css" rel="stylesheet" media="screen">
-		<link href="${pageContext.request.contextPath}/static/css/main.css" rel="stylesheet" media="screen">
+		<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet" media="screen">
+		<link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet" media="screen">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
 	</head>
 	
 	<body>
-		<header style="text-align:center;"><b>
-			****************************************************************** <br />
-			****************************************************************** <br />
-			***** Welcome in your Computer DataBase Manager ! ***** <br />
-			******** Happy to see you again Mr AHMED-YAHIA ! ******** <br />
-			****************************************************************** <br />
-			****************************************************************** <br /></b>
+		<header style="text-align:center;">
+			<h1>
+				Welcome in your Computer DataBase Manager ! <br />
+				Happy to see you again Mr AHMED-YAHIA ! <br />
+			</h1>
 		</header>
 		
 	    <section id="main">
