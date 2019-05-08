@@ -212,7 +212,7 @@ public class CommandLineInterface {
 		if (choice < 0 || choice > actionsNumber ) {
 			System.out.println("Invalid choice. Please try again"
 					+ "\n_______________________________________________________\n\n");
-			computerConsole();
+			companyConsole();
 			return;
 		}
 		else {
@@ -464,8 +464,18 @@ public class CommandLineInterface {
 			this.computerConsole();
 		}
 		
-		Optional<Computer> computer = computerDAO.find(computerID);
-
+		Optional<Computer> computer = null;
+		try{
+			computer = computerDAO.find(computerID);
+		}
+		catch (Exception e) {
+			System.out.println("\nSorry, this computer does not exist...\n"
+					+ "\nRefreshing ...\n"
+					+ "\n_______________________________________________________");
+			showComputerDetails();
+			return;
+		}
+		
 		if (computer.isPresent()) {
 			System.out.println("\n"+computer.get()+"\n");
 		} else {
@@ -494,8 +504,18 @@ public class CommandLineInterface {
 			this.companyConsole();
 		}
 		
-		Optional<Company> company = companyDAO.find(companyID);
-
+		Optional<Company> company = null;
+		try{
+			company = companyDAO.find(companyID);
+		}
+		catch (Exception e) {
+			System.out.println("\nSorry, this company does not exist...\n"
+					+ "\nRefreshing ...\n"
+					+ "\n_______________________________________________________");
+			showCompanyDetails();
+			return;
+		}
+		
 		if (company.isPresent()) {
 			System.out.println("\n"+company.get()+"\n");
 		} else {
@@ -519,29 +539,47 @@ public class CommandLineInterface {
 		System.out.print("Please enter the name of the computer you want to add (enter 0 to go back) : ");
 		
 		String computerName = null;
+		int i =0;
 		do {
-			computerName = scanner.next();
+			computerName = scanner.nextLine();
 			if (computerName.equals("0")) {
 				System.out.println("\nBack to computer menu\n"
 						+ "\n_______________________________________________________");
 				this.computerConsole();
 			}
-			else if (computerName.length() < 3) {
+			else if (computerName.length() < 3 && i!=0) {
 				System.out.print("\nSorry, a computer name must has more than 3 characters...\n"
 						+ "Please add an other computer name : ");
 			}
+			i++;
 		} while (computerName.length() < 3);
 		
 		System.out.print("Please enter the name of your computer's manufacturer (enter 0 to go back) : ");
-		String companyName = scanner.next();
+		String companyName = scanner.nextLine();
 		if (companyName.equals("0")) {
 			System.out.println("\nBack to computer menu\n"
 					+ "\n_______________________________________________________");
 			this.computerConsole();
 		}
 		
-		Optional<Company> company = companyDAO.find(companyName);
-		Timestamp introducedDate = TimestampMapper.currentTimeToTimestamp();
+		Optional<Company> company = null;
+		try{
+			company = companyDAO.find(companyName);
+		}
+		catch (Exception e) {
+			System.out.println("\nSorry, this company does not exist...\n"
+					+ "\nRefreshing ...\n"
+					+ "\n_______________________________________________________");
+			addComputer();
+			return;
+		}
+		
+		Timestamp introducedDate = null;
+		try {
+			introducedDate = TimestampMapper.currentTimeToTimestamp();
+		} catch (Exception e) {
+			System.out.println("problem");
+		}
 
 		if(company.isPresent()) {
 			Computer computer = new ComputerBuilder().empty()
@@ -551,7 +589,7 @@ public class CommandLineInterface {
 					.build();
 			System.out.print("You are gonna add the computer " + computer.getName() + " manufactured by " + computer.getCompany().getName() + " in your database."
 					+ "\nDo you want to add this computer ? (Y/N) : ");
-			String validator = scanner.next();
+			String validator = scanner.nextLine();
 			System.out.println();
 			if (validator.equalsIgnoreCase("Y")) { 
 				computerDAO.add(computer);
@@ -578,26 +616,29 @@ public class CommandLineInterface {
 		System.out.println("\n********************");
 		System.out.println("** Adding Company **");
 		System.out.println("********************\n");
-		System.out.print("Please enter the name of the company you want to add (enter 0 to go back) : ");
+		System.out.print("Please enter the name of the company you want to add (enter 0 to go back) :");
 		
 		String companyName = null;
+		int i =0;
 		do {
-			companyName = scanner.next();
+			companyName = scanner.nextLine();
+			System.out.println();
 			if (companyName.equals("0")) {
-				System.out.println("\nBack to company menu\n"
+				System.out.println("Back to company menu\n"
 						+ "\n_______________________________________________________");
 				this.companyConsole();
 			}
-			else if (companyName.length() < 3) {
-				System.out.print("\nSorry, a company name must has more than 3 characters...\n"
+			if (companyName.length() < 3 && i!=0) {
+				System.out.print("Sorry, a company name must has more than 3 characters...\n"
 						+ "Please add an other company name : ");
 			}
+			i++;
 		} while (companyName.length() < 3);
 			
 		Company company = new Company(companyName);
 		System.out.print("You are gonna add the company " + company.getName() + " in your database."
 				+ "\nDo you want to add this company ? (Y/N) : ");
-		String validator = scanner.next();
+		String validator = scanner.nextLine();
 		System.out.println();
 		if (validator.equalsIgnoreCase("Y")) { 
 			companyDAO.add(company);
@@ -628,39 +669,60 @@ public class CommandLineInterface {
 			this.computerConsole();
 		}
 
-		Optional<Computer> computer = computerDAO.find(computerID);
-
+		Optional<Computer> computer = null;
+		try{
+			computer = computerDAO.find(computerID);
+		}
+		catch (Exception e) {
+			System.out.println("\nSorry, this computer does not exist...\n"
+					+ "\nRefreshing ...\n"
+					+ "\n_______________________________________________________");
+			updateComputer();
+			return;
+		}
+		
 		if (computer.isPresent()) {
 			System.out.println(computer.get());
 
 			System.out.print("New computer name : ");
 			String computerName = null;
+			int i =0;
 			do {
-				computerName = scanner.next();
+				computerName = scanner.nextLine();
 				if (computerName.equals("0")) {
 					System.out.println("\nBack to computer menu\n"
 							+ "\n_______________________________________________________");
 					this.computerConsole();
 				}
-				else if (computerName.length() < 3) {
+				else if (computerName.length() < 3 && i!=0) {
 					System.out.print("\nSorry, a computer name must has more than 3 characters...\n"
 							+ "Please add an other computer name : ");
 				}
+				i++;
 			} while (computerName.length() < 3);
 			computer.get().setName(computerName);
 
 			System.out.print("Manufacturer name : ");
-			String companyName = scanner.next();
+			String companyName = scanner.nextLine();
 			if (companyName.equals("0")) {
 				System.out.println("\nBack to computer menu\n"
 						+ "\n_______________________________________________________");
 				this.computerConsole();
 			}
-			computer.get().setCompany(companyDAO.find(companyName).get());
+			try{
+				computer.get().setCompany(companyDAO.find(companyName).get());
+			}
+			catch (Exception e) {
+				System.out.println("\nSorry, this company does not exist...\n"
+						+ "\nRefreshing ...\n"
+						+ "\n_______________________________________________________");
+				updateComputer();
+				return;
+			}
 
 			if (computer.get().getIntroducedDate() != null && computer.get().getDiscontinuedDate() == null) {
 				System.out.print("Discontinued this computer ? (Y/N) : ");
-				String answer = scanner.next();
+				String answer = scanner.nextLine();
 				if (answer.equals("0")) {
 					System.out.println("\nBack to computer menu\n"
 							+ "\n_______________________________________________________");
@@ -676,7 +738,7 @@ public class CommandLineInterface {
 			updatedComputer = computer.get();
 			System.out.print("You are gonna update this computer :\n" + computer.get() + "\nOld informations about it will be removed.\n"
 					+ "\nDo you want to udate this computer ? (Y/N) : ");
-			String validator = scanner.next();
+			String validator = scanner.nextLine();
 			System.out.println();
 			if (validator.equalsIgnoreCase("Y")) { 
 				computerDAO.update(updatedComputer);
@@ -703,30 +765,42 @@ public class CommandLineInterface {
 		System.out.println("\n**********************");
 		System.out.println("** Updating Company **");
 		System.out.println("**********************\n");
-		System.out.print("Please enter the ID of the company you want to update (enter 0 to go back) : ");
+		System.out.println("Please enter the ID of the company you want to update (enter 0 to go back) :");
 		int companyID = scanner.nextInt();
 		if (companyID == 0) {
 			this.companyConsole();
 		}
 			
-		Optional<Company> company = companyDAO.find(companyID);
+		Optional<Company> company = null;
+		try{
+			company = companyDAO.find(companyID);
+		}
+		catch (Exception e) {
+			System.out.println("\nSorry, this company does not exist...\n"
+					+ "\nRefreshing...\n"
+					+ "\n_______________________________________________________");
+			updateCompany();
+			return;
+		}
 
 		if (company.isPresent()) {
 			System.out.println(company.get());
-			System.out.print("New company name : ");
+			System.out.println("New company name : ");
 			
 			String companyName = null;
+			int i =0;
 			do {
-				companyName = scanner.next();
+				companyName = scanner.nextLine();
 				if (companyName.equals("0")) {
 					System.out.println("\nBack to company menu\n"
 							+ "\n_______________________________________________________");
 					this.companyConsole();
 				}
-				if (companyName.length() < 3) {
+				if (companyName.length() < 3 && i!=0) {
 					System.out.print("\nSorry, a company name must has more than 3 characters...\n"
 							+ "Please enter an other name to update your company : ");
 				}
+				i++;
 			} while (companyName.length() < 3);
 			
 			company.get().setName(companyName);
@@ -736,7 +810,7 @@ public class CommandLineInterface {
 			System.out.print("You are gonna update the company " + company.get() + ".\n"
 					+ "Old informations about it will be removed and it will affect all computers associated.\n"
 					+ "\nDo you want to udate this company ? (Y/N) : ");
-			String validator = scanner.next();
+			String validator = scanner.nextLine();
 			System.out.println();
 			if (validator.equalsIgnoreCase("Y")) { 
 				companyDAO.update(updatedCompany);
@@ -771,7 +845,18 @@ public class CommandLineInterface {
 			this.computerConsole();
 		}
 		
-		Optional<Computer> computer = computerDAO.find(computerID);
+		Optional<Computer> computer = null;
+		try{
+			computer = computerDAO.find(computerID);
+		}
+		catch (Exception e) {
+			System.out.println("\nSorry, this computer does not exist...\n"
+					+ "\nRefreshing ...\n"
+					+ "\n_______________________________________________________");
+			removeComputer();
+			return;
+		}
+		
 		if (computer.isPresent()) {
 			System.out.print("You are gonna remove this computer :\n"
 					+ computer.get()
@@ -811,7 +896,18 @@ public class CommandLineInterface {
 			this.companyConsole();
 		}
 		
-		Optional<Company> company = companyDAO.find(companyID);
+		Optional<Company> company = null;
+		try{
+			company = companyDAO.find(companyID);
+		}
+		catch (Exception e) {
+			System.out.println("\nSorry, this company does not exist...\n"
+					+ "\nRefreshing ...\n"
+					+ "\n_______________________________________________________");
+			removeCompany();
+			return;
+		}
+		
 		if (company.isPresent()) {
 			System.out.print("You are gonna remove the company " + company.get() + " and all computers associated with.\n"
 					+ "It could not be undone. Are you sure you want to remove this company ? (Y/N) : ");

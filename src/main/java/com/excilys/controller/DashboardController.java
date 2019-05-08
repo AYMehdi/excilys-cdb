@@ -32,8 +32,8 @@ public class DashboardController {
 			@RequestParam(name="page", required=false) Page<ComputerDTO> page, 
 			@RequestParam(name="currentPage", required=false) String currentPage, 
 			@RequestParam(name="search", required=false) String search, 
-			@RequestParam(name="sortBy", required=false) String sortBy, Locale locale) 
-			throws IOException {
+			@RequestParam(name="sortBy", required=false) String sortBy, 
+			Locale locale) throws IOException {
 
 		List<ComputerDTO> listComputers = new ArrayList<ComputerDTO>();
 		try {
@@ -47,7 +47,6 @@ public class DashboardController {
 		if (page == null) {
 			page = new Page<ComputerDTO>(listComputers);
 		} 
-
 		page.setData(listComputers);
 
 		if (currentPage != null && currentPage != "") {

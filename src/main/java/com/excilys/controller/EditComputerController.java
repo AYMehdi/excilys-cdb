@@ -42,7 +42,7 @@ public class EditComputerController {
 
 	@GetMapping({"/EditComputer", "/editComputer"})
 	public String getEditComputer(Model model, 
-			@RequestParam(name="computerId", required=false, defaultValue="") String id, 
+			@RequestParam(name="computerID", required=false, defaultValue="") String id, 
 			Locale locale) 
 					throws IOException {
 		

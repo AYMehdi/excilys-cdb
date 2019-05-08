@@ -25,10 +25,10 @@ public class ComputerService {
 	
 // ******** VARIABLES *******
 	@Autowired 
-	ComputerDAO computerDao;
+	ComputerDAO computerDAO;
 	
 	@Autowired
-	CompanyDAO companyDao;
+	CompanyDAO companyDAO;
 	
 // ******** CONSTRUCTOR *******
 	/**
@@ -52,7 +52,7 @@ public class ComputerService {
 		
 		if (id != null && id != "") {
 			computerID = Integer.parseInt(id);
-			computer = computerDao.find(computerID);
+			computer = computerDAO.find(computerID);
 			
 			if (computer.isPresent()) {
 				computerDTO = Optional.of(ComputerMapper.computerToComputerDTO(computer.get()));
@@ -68,7 +68,7 @@ public class ComputerService {
 	 * @throws SQLException
 	 */
 	public List<ComputerDTO> getAll() throws SQLException {
-		List<Computer> computers = computerDao.getAll();
+		List<Computer> computers = computerDAO.getAll();
 		List<ComputerDTO> computersDTO = new ArrayList<ComputerDTO>();
 
 		for (Computer computer : computers) {
@@ -104,7 +104,7 @@ public class ComputerService {
 			}
 		} 
 
-		Optional<Company> company = companyDao.find(computerDTO.getCompanyId());
+		Optional<Company> company = companyDAO.find(computerDTO.getCompanyId());
 		Computer computer;
 		if (company.isPresent()) {
 			computer = new Computer(computerDTO.getComputerName(), company.get(), introduced, discontined);
@@ -113,7 +113,7 @@ public class ComputerService {
 		}
 		
 		ComputerValidator.validateComputer(computer);
-		computerDao.add(computer);
+		computerDAO.add(computer);
 	}
 
 	/**
@@ -142,7 +142,7 @@ public class ComputerService {
 			}
 		} 
 
-		Optional<Company> company = companyDao.find(computerDTO.getCompanyId());
+		Optional<Company> company = companyDAO.find(computerDTO.getCompanyId());
 		Computer computer;
 		if (company.isPresent()) {
 			computer = new Computer(computerDTO.getComputerId(), computerDTO.getComputerName(), company.get(), introduced, discontined);
@@ -151,7 +151,7 @@ public class ComputerService {
 		}
 		
 		ComputerValidator.validateComputer(computer);
-		computerDao.update(computer);
+		computerDAO.update(computer);
 	}
 
 	/**
@@ -165,9 +165,9 @@ public class ComputerService {
 			computerID = Integer.parseInt(id);
 		}
 
-		Optional<Computer> computer = computerDao.find(computerID);
+		Optional<Computer> computer = computerDAO.find(computerID);
 		if(computer.isPresent()) {
-			computerDao.remove(computer.get());
+			computerDAO.remove(computer.get());
 		}
 	}
 
@@ -178,7 +178,7 @@ public class ComputerService {
 	 * @throws SQLException
 	 */
 	public List<ComputerDTO> searchComputers(String name) throws SQLException {
-		List<Computer> computers = computerDao.find(name);
+		List<Computer> computers = computerDAO.find(name);
 		List<ComputerDTO> computersDTO = new ArrayList<ComputerDTO>();
 		
 		for (Computer computer : computers) {
@@ -196,7 +196,7 @@ public class ComputerService {
 	 * @throws SQLException
 	 */
 	public List<ComputerDTO> sortBy(String choice) throws SQLException {
-		List<Computer> computers = computerDao.sortBy(choice);
+		List<Computer> computers = computerDAO.sortBy(choice);
 		List<ComputerDTO> computersDTO = new ArrayList<ComputerDTO>();
 		for (Computer computer : computers) {
 			ComputerDTO computerDto = ComputerMapper.computerToComputerDTO(computer);

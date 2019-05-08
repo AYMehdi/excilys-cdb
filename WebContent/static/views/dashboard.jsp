@@ -18,7 +18,7 @@
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<a class="navbar-brand"
-				href="<c:url value="/Dashboard?currentPage=0"/>"> Application -	Computer Database </a>
+				href="<c:url value="/Dashboard?currentPage=0"/>"> J.A.R.V.I.S -	Computer Database </a>
 			<input type="button" onclick="location.href='<c:url value="/Dashboard?lang=en"/>'" value="EN"> 
 			<input type="button" onclick="location.href='<c:url value="/Dashboard?lang=fr"/>'" value="FR">
 		</div>
@@ -73,7 +73,7 @@
 									<spring:message	code="computerName" /></a>
 							</th>
 							<th>
-								<a onclick="location.href='<c:url value="/Dashboard?sortBy=companyName" />'" title="<spring:message code="titleComputerName" />">
+								<a onclick="location.href='<c:url value="/Dashboard?sortBy=name" />'" title="<spring:message code="titleCompanyName" />">
 								<spring:message code="company" /></a>
 							</th>							
 							<th>
@@ -97,9 +97,9 @@
 								<td><a
 									href="<c:url value="/EditComputer?computerId=${computer.id}"/>"
 									onclick="">${computer.name}</a></td>
-								<td>${computer.companyName}</td>
-								<td>${computer.introducedDate}</td>
-								<td>${computer.discontinuedDate}</td>
+								<td>${company.name}</td>
+								<td>${computer.introduced}</td>
+								<td>${computer.discontinued}</td>
 							</tr>
 						</c:forEach>
 					</tbody>

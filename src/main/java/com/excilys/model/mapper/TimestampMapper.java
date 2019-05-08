@@ -53,7 +53,7 @@ public class TimestampMapper {
 	 */
 	public static Timestamp currentTimeToTimestamp() {
 		LocalDateTime now = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
 		String formatDateTime = now.format(formatter);
 		return Timestamp.valueOf(formatDateTime);
 	}
